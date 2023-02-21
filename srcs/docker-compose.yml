@@ -2,16 +2,21 @@ version:  '3.1'
 
 services:
   service_nginx:
+    container_name: nginx_tno
+    ports:
+      - '443:443'
     image:
     command:
     environment:
     volumes:
   service_mariadb:
+    container_name: mariadb_tno
     image:
     command:
     environment:
     volumes:
   service_wp:
+    container_name: wp_tno
     image:
     command:
     environment:
