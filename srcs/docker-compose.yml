@@ -1,0 +1,22 @@
+version:  '3.1'
+
+services:
+  service_nginx:
+    image:
+    command:
+    environment:
+    volumes:
+  service_mariadb:
+    image:
+    command:
+    environment:
+    volumes:
+  service_wp:
+    image:
+    command:
+    environment:
+    volumes:
+
+volumes:
+
+networks:
