@@ -4,19 +4,23 @@ RUN	set -x \
 	&& apk update \
 	&& apk upgrade \
 	&& apk add nginx \
+	&& rm -fv /etc/nginx/nginx.conf \
 	&& apk add openssl \
-	&& apk add shadow 
-#	&& adduser -D -g 'www' www \
-#	&& mkdir /www \
-#	&& chown -R www:www /var/lib/nginx \
-#	&& chown -R www:www /www
+	&& apk add curl 
 
 WORKDIR	/etc/ssl	
 
-RUN	openssl req -x509 -sha256 -days 356 -nodes -newkey rsa:2048 -subj "/CN=tnoulens.42.fr/C=FR/L=Paris/UID=tnoulens" -keyout rootCA.key -out rootCA.crt
+RUN	openssl req -x509 -sha256 -days 356 -nodes -newkey rsa:2048 -subj "/CN=tnoulens.42.fr/C=FR/L=Paris/UID=tnoulens" -keyout rootCA.key -out rootCA.crt \
+	&& chmod 400 ./rootCA.key
 
-RUN	ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
+WORKDIR	/etc/nginx
+
+COPY	./conf/nginx.conf .
+
+RUN	cat nginx.conf \
+	&& ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log \
+	&& nginx -t
 
 EXPOSE	443
 
