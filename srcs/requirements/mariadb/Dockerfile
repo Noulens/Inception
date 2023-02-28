@@ -3,8 +3,8 @@ FROM	alpine:3.16
 RUN	set -x \
 	&& apk update \
 	&& apk upgrade \
-	&& apk add openrc --no-cache \
 	&& apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen \
+	&& apk del nginx \
 	&& rm -f /etc/my.cnf
 
 WORKDIR	/etc
