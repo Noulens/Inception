@@ -1,11 +1,5 @@
 #!/bin/sh
 
-#echo "Delete /etc/my.cnf"
-#rm -vf /etc/my.cnf
-#echo "setting new conf file"
-#cp /conf_file/my.cnf /etc/
-#echo "conf ready"
-#rm -rf /conf_file
 
 if [ -d "/run/mysqld" ]; then
 	echo "[i] mysqld already present, skipping creation"
