@@ -49,3 +49,19 @@ services:
     restart: on-failure
     expose: 
       - "9000"
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/tnoulens/data/wordpress
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/tnoulens/data/mariadb
+networks:
+  inception:
+    driver: bridge
