@@ -1,6 +1,6 @@
 #!/bin/sh
 
-
+rc-service mysqld start
 if [ -d "/run/mysqld" ]; then
 	echo "[i] mysqld already present, skipping creation"
 	chown -R mysql:mysql /run/mysqld

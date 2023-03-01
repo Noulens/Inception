@@ -18,6 +18,7 @@ clean:
 	docker-compose -f $(SRCS) down --rmi all -v
 fclean:
 	docker-compose -f $(SRCS) down --rmi all -v
+	chmod 777 /home/tnoulens/data/
 	rm -rf /home/tnoulens/data/
 
 prune:	fclean

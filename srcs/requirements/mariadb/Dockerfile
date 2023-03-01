@@ -4,8 +4,11 @@ RUN	set -x \
 	&& apk update \
 	&& apk upgrade \
 	&& apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen \
-	&& apk del nginx \
+	&& apk add openrc \
 	&& rm -f /etc/my.cnf
+
+RUN	openrc \
+	&& touch /run/openrc/softlevel
 
 WORKDIR	/etc
 COPY	./conf/my.cnf .

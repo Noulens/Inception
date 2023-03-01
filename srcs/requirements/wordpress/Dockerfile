@@ -22,7 +22,7 @@ RUN	mkdir -p /var/www \
 
 WORKDIR	/var/www
 RUN	wget http://wordpress.org/latest.tar.gz \
-	&& tar -xzvf latest.tar.gz \
+	&& tar -xzf latest.tar.gz \
 	&& rm latest.tar.gz
 
 RUN	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
