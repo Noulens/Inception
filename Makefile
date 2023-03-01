@@ -1,24 +1,24 @@
 SRCS	=	srcs/docker-compose.yml
-PATH	=	/home/tnoulens/data
 
-all:	up	
+all:	up
 
 up:
-	mkdir -p $(PATH)/mariadb
-	mkdir -p $(PATH)/wordpress
-	docker compose -f $(SRCS) up --build -d
-
-down:	
-	docker compose -f $(SRCS) down
+	mkdir -p /home/tnoulens/data/mariadb
+	mkdir -p /home/tnoulens/data/wordpress
+	docker-compose -f $(SRCS) up --build -d
+down:
+	docker-compose -f $(SRCS) down
 
 ps:
 	docker-compose -f $(SRCS) ps
 
+top:
+	docker-compose -f $(SRCS) top
 clean:
 	docker-compose -f $(SRCS) down --rmi all -v
-
-fclean: clean
-	rm -rf $(PATH)
+fclean:
+	docker-compose -f $(SRCS) down --rmi all -v
+	rm -rf /home/tnoulens/data/
 
 prune:	fclean
 	docker system prune -f --all --volumes
