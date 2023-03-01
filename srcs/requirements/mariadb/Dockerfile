@@ -1,24 +1,20 @@
-FROM	alpine:3.16
+FROM	debian:buster
 
 RUN	set -x \
-	&& apk update \
-	&& apk upgrade \
-	&& apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen \
-	&& apk add openrc \
-	&& rm -f /etc/my.cnf
+	&& apt update -y \
+	&& apt upgrade -y
 
-RUN	openrc \
-	&& touch /run/openrc/softlevel
+RUN apt-get install mariadb-server -y
 
-WORKDIR	/etc
-COPY	./conf/my.cnf .
+WORKDIR	/etc/mysql/mariadb.conf.d/
+COPY	conf/50-server.cnf ./50-server.cnf
 
 WORKDIR	/scripts
 COPY	./conf/run.sh .
-RUN	chmod -R 755 /scripts
+RUN		chmod -R 755 /scripts
 
 WORKDIR	/
 
 EXPOSE	3306
 
-ENTRYPOINT	["/scripts/run.sh"]
+ENTRYPOINT	["sh", "/scripts/run.sh"]

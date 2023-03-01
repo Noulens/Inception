@@ -1,24 +1,22 @@
-FROM	alpine:3.16
+FROM	debian:buster
 
-RUN	set -x \
-	&& apk update \
-	&& apk upgrade \
-	&& apk add nginx \
-	&& rm -fv /etc/nginx/nginx.conf \
-	&& apk add openssl \
-	&& apk add curl 
+RUN		set -x \
+		&& apt update -y \
+		&& apt upgrade -y \
+		&& apt install nginx -y \
+		&& apt install vim -y
 
-WORKDIR	/etc/ssl	
+RUN		mkdir -p /etc/nginx/ssl \
+		&& apt install openssl -y
 
-RUN	openssl req -x509 -sha256 -days 356 -nodes -newkey rsa:2048 -subj "/CN=tnoulens.42.fr/C=FR/L=Paris/UID=tnoulens" -keyout rootCA.key -out rootCA.crt \
-	&& chmod 400 ./rootCA.key
+RUN		openssl req -x509 -nodes -out /etc/nginx/ssl/rootCA.crt -keyout etc/nginx/ssl/rootCA.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=login.42.fr/UID=login" \
+		&& chmod 400 ./rootCA.key
 
-WORKDIR	/etc/nginx
-COPY	./conf/nginx.conf .
+RUN		mkdir -p /var/run/nginx
 
-RUN	ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
+COPY	conf/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE	443
+RUN		chmod 755 /var/www/html \
+		&& chown -R www-data:www-data /var/www/html
 
-CMD	["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

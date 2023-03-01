@@ -15,11 +15,17 @@ ps:
 top:
 	docker-compose -f $(SRCS) top
 clean:
-	docker-compose -f $(SRCS) down --rmi all -v
+	@docker stop $$(docker ps -qa);\
+    docker rm $$(docker ps -qa);\
+    docker rmi -f $$(docker images -qa);\
+    docker volume rm $$(docker volume ls -q);\
+	rm -rf /home/tnoulens/data/mariadb/*;\
+	rm -rf /home/tnoulens/data/wordpress/*;\
+    docker network rm srcs_docker_network;\
+
 fclean:
 	docker-compose -f $(SRCS) down --rmi all -v
-	chmod 777 /home/tnoulens/data/
-	sudo rm -rf /home/tnoulens/data/
+	rm -rf /home/tnoulens/data/*
 
 prune:	fclean
 	docker system prune -f --all --volumes

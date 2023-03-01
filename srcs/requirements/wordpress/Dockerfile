@@ -1,42 +1,30 @@
-FROM	alpine:3.16
+FROM	debian:buster
 
-COPY	./conf/enable_testing_repo.sh .
+RUN		apt update -y \
+		&& apt upgrade -y \
+		&& apt-get -y install wget \
+		&& apt-get install -y php7.3 \
+		php-fpm \
+		php-mysql \
+		mariadb-client
 
-RUN	set -x \
-	&& chmod 755 ./enable_testing_repo.sh \
-	&& ./enable_testing_repo.sh \
-	&& rm -f ./enable_testing_repo.sh \
-	&& apk update \
-	&& apk upgrade \
-	&& apk add curl \
-	&& apk add php7 php7-fpm php7-opcache \
-	&& apk add php7-gd php7-mysqli php7-zlib php7-curl mariadb-client \
-	&& apk del nginx \
-	&& rm -rf /var/cache/apk/* \
-	&& ln -s /usr/bin/php7 /usr/bin/php \
-	&& php --version
+RUN		wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 
-RUN	mkdir -p /var/www \
-	&&chown -R 100:101 /var/www \
-	&& chown -R 100:82 /var/www
+WORKDIR	/var/www 
+RUN		tar -xf wordpress-6.0-fr_FR.tar.gz \
+		&& rm wordpress-6.0-fr_FR.tar.gz \
+		&& chown -R root:root /var/www/wordpress
 
-WORKDIR	/var/www
-RUN	wget http://wordpress.org/latest.tar.gz \
-	&& tar -xzf latest.tar.gz \
-	&& rm latest.tar.gz
+WORKDIR	/etc/php/7.3/fpm/pool.d
+COPY	./conf/www.conf ./www.conf
 
-RUN	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar \
-	&& mv wp-cli.phar /usr/bin/wp-cli \
-	&& chown 100:101 /usr/bin/wp-cli
+RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+		&& chmod +x wp-cli.phar \
+		&& mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR	/etc/php7
-COPY	./conf/php-fpm.conf .
+WORKDIR /tmp
+COPY	/conf/config_auto.sh ./config_auto.sh
 
-WORKDIR	/
-COPY	./conf/config_auto.sh .
-RUN	chmod +x /config_auto.sh 
+RUN		mkdir /run/php
 
-EXPOSE	9000
-
-ENTRYPOINT ["sh", "./config_auto.sh"]
+ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
