@@ -27,4 +27,6 @@ COPY	/conf/config_auto.sh ./config_auto.sh
 
 RUN		mkdir /run/php
 
+EXPOSE 9000
+
 ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
