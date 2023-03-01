@@ -9,6 +9,7 @@ RUN		set -x \
 RUN		mkdir -p /etc/nginx/ssl \
 		&& apt install openssl -y
 
+WORKDIR /etc/nginx/ssl
 RUN		openssl req -x509 -nodes -out /etc/nginx/ssl/rootCA.crt -keyout etc/nginx/ssl/rootCA.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=login.42.fr/UID=login" \
 		&& chmod 400 ./rootCA.key
 
