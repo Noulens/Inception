@@ -17,8 +17,7 @@ WORKDIR	/etc/nginx
 COPY	./conf/nginx.conf .
 
 RUN	ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log \
-	&& nginx -t
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 EXPOSE	443
 
