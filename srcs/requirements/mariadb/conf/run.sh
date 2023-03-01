@@ -1,6 +1,8 @@
 #!/bin/sh
 
-rc-service mysqld start
+/etc/init.d/mariadb setup
+rc-service mariadb start
+
 if [ -d "/run/mysqld" ]; then
 	echo "[i] mysqld already present, skipping creation"
 	chown -R mysql:mysql /run/mysqld
@@ -66,4 +68,9 @@ EOF
 
 fi
 
-exec /usr/bin/mysqld 
+rc-service mariadb restart
+rc-service mariadb stop
+
+echo "mariadb service will now start..."
+
+/usr/bin/mariadbd 

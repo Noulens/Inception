@@ -13,10 +13,6 @@ WORKDIR	/etc/ssl
 RUN	openssl req -x509 -sha256 -days 356 -nodes -newkey rsa:2048 -subj "/CN=tnoulens.42.fr/C=FR/L=Paris/UID=tnoulens" -keyout rootCA.key -out rootCA.crt \
 	&& chmod 400 ./rootCA.key
 
-WORKDIR	/var/www
-COPY	./conf/picard.gif .
-COPY	./conf/index.html .
-
 WORKDIR	/etc/nginx
 COPY	./conf/nginx.conf .
 
