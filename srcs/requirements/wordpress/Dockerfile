@@ -6,7 +6,8 @@ RUN		apt update -y \
 		&& apt-get install -y php7.3 \
 		php-fpm \
 		php-mysql \
-		mariadb-client
+		mariadb-client \
+		&& apt install -y vim fish
 
 RUN		wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 
@@ -30,4 +31,4 @@ RUN		mkdir /run/php
 
 EXPOSE 9000
 
-ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
+# ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
