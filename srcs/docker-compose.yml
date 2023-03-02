@@ -11,50 +11,50 @@ services :
     env_file:
     - ./.env
     volumes:
-      - mariadb:/var/lib/mysql
+      - mariadb_vol:/var/lib/mysql
     restart: on-failure
 
-  # nginx:
-  #   container_name: nginx
-  #   image: nginx
-  #   volumes:
-  #     - wordpress:/var/www/wordpress
-  #   networks:
-  #     - inception
-  #   depends_on:
-  #     - wordpress
-  #   build:
-  #     context: requirements/nginx
-  #     dockerfile : Dockerfile
-  #   env_file: ./.env
-  #   ports:
-  #     - 443:443
-  #   restart: on-failure
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - wordpress_vol:/var/www/wordpress
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    build:
+      context: requirements/nginx
+      dockerfile : Dockerfile
+    env_file: ./.env
+    ports:
+      - 443:443
+    restart: on-failure
 
-  # wordpress:
-  #   container_name: wordpress
-  #   image: wordpress
-  #   env_file: ./.env
-  #   volumes:
-  #     - wordpress:/var/www/wordpress
-  #   networks:
-  #     - inception
-  #   build:
-  #     context: requirements/wordpress
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - mariadb
-  #   restart: on-failure
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    env_file: ./.env
+    volumes:
+      - wordpress_vol:/var/www/wordpress
+    networks:
+      - inception
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    depends_on:
+      - mariadb
+    restart: on-failure
 
 
 volumes:
-  wordpress:
+  wordpress_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: /home/tnoulens/data/wordpress
-  mariadb:
+  mariadb_vol:
     driver: local
     driver_opts:
       type: none

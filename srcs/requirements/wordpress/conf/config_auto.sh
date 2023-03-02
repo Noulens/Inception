@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleep 5
+sleep 12
 
 if [ ! -f '/var/www/wordpress/wp-config.php' ]; then
 	echo "[i] Wordpress is configuring...."
