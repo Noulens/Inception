@@ -1,8 +1,8 @@
 #!/bin/sh
 
-sleep 5 
+sleep 5
 
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
+if [ ! -f '/var/www/wordpress/wp-config.php' ]; then
 	echo "[i] Wordpress is configuring...."
 	echo "	Linking database ${MYSQL_DATABASE} to  ${MYSQL_USER} with password ${MYSQL_PASSWORD}"
 	wp config create --allow-root --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$MYSQL_HOST --path='/var/www/wordpress'
@@ -12,4 +12,4 @@ fi
 
 mkdir -p /usr/logs/php-fpm
 
-php-fpm7  -F
+php-fpm7.3  -F

@@ -22,8 +22,7 @@ clean:
     docker rmi -f $$(docker images -qa);\
     docker volume rm $$(docker volume ls -q);\
 	rm -rf /home/tnoulens/data/mariadb/*;\
-	rm -rf /home/tnoulens/data/wordpress/*;\
-    docker network rm srcs_docker_network;\
+	rm -rf /home/tnoulens/data/wordpress/*;
 
 fclean: clean
 	docker-compose -f $(SRCS) down --rmi all -v
