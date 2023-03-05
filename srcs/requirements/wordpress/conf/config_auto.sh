@@ -5,6 +5,7 @@ sleep 10
 if [ ! -f '/var/www/wordpress/wp-config.php' ]; then
 	echo "[i] Wordpress is configuring...."
 	echo "	Linking database ${MYSQL_DATABASE} to  ${MYSQL_USER} with password ${MYSQL_PASSWORD}"
+	wp --allow-root core download --path=/var/www/wordpress
 	wp config create --allow-root \
 		--dbname=$MYSQL_DATABASE \
 		--dbuser=$MYSQL_USER \

@@ -1,21 +1,27 @@
 FROM	debian:buster
 
-RUN	set -x \
-	&& apt update -y \
-	&& apt upgrade -y
+RUN		apt update -y \
+		&& apt upgrade -y
 
-RUN apt install mariadb-server vim fish -y
+RUN		apt install mariadb-server mariadb-client -y
 
 WORKDIR	/etc/mysql/mariadb.conf.d/
 COPY	conf/50-server.cnf ./50-server.cnf
 
-RUN		mkdir /scripts
-WORKDIR	/scripts
-COPY	./conf/run.sh .
-RUN		chmod -R 755 /scripts
+RUN		mkdir -p /var/lib/mysql /var/run/mysqld \
+		&& chown -R mysql:mysql /var/run/mysqld
 
-WORKDIR	/
+WORKDIR	/var/mysql
+COPY	./conf/run.sh .
+RUN		chmod -R 755 /var/mysql/run.sh
 
 EXPOSE	3306
 
-ENTRYPOINT	["sh", "/scripts/run.sh"]
+ENTRYPOINT	["sh", "/var/mysql/run.sh"]
+
+# connect to mariadb
+# mysql -u root -p#MDB_ROOT_PASSWORD -h localhost wordpress
+# SHOW DATABASES;
+# SHOW TABLES;
+# SHOW COLUMNS FROM wp_comments FROM wordpress;
+# SELECT comment_content FROM wp_comments;
