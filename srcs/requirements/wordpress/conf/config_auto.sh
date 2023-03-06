@@ -1,18 +1,17 @@
 #!/bin/sh
 
-sleep 10
-
-if [ ! -f '/var/www/wordpress/wp-config.php' ]; then
+if [ ! -f '/var/www/html/wordpress/.my_wp_config' ]; then
 	echo "[i] Wordpress is configuring...."
-	echo "	Linking database ${MYSQL_DATABASE} to  ${MYSQL_USER} with password ${MYSQL_PASSWORD}"
-	wp --allow-root core download --path=/var/www/wordpress
+	echo "	Linking database ${MDB_DATABASE} to  ${MDB_USER} with password ${MDB_PASSWORD}"
+	wp core download --allow-root
+	rm -f /var/www/html/wp-config.php
 	wp config create --allow-root \
-		--dbname=$MYSQL_DATABASE \
-		--dbuser=$MYSQL_USER \
-		--dbpass=$MYSQL_PASSWORD \
-		--dbhost=$MYSQL_HOST \
-		--path='/var/www/wordpress'
-	sleep 3
+		--skip-check \
+		--dbname=$MDB_DATABASE \
+		--dbuser=$MDB_USER \
+		--dbpass=$MDB_PASSWORD \
+		--dbhost=$MDB_HOST \
+		--path='/var/www/html/wordpress'
 	wp core install --title=$SITE_TITLE \
 		--admin_user=$ADMIN \
 		--admin_password=$ADMIN_PW \
@@ -23,8 +22,9 @@ if [ ! -f '/var/www/wordpress/wp-config.php' ]; then
 		--role=author \
 		--user_pass=$USER42_PW \
 		--allow-root \
-		--path='/var/www/wordpress' \
+		--path='/var/www/html/wordpress' \
 		>> logs_wp.txt
+	touch /var/www/html/wordpress/.my_wp_config
 fi
 
 mkdir -p /usr/logs/php-fpm

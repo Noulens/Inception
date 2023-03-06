@@ -2,21 +2,19 @@ FROM	debian:buster
 
 RUN		apt update -y \
 		&& apt upgrade -y \
-		&& apt-get -y install wget \
 		&& apt-get install -y php7.3 \
 		php-fpm \
 		php-mysql \
 		mariadb-client \
-		&& apt install -y vim fish net-tools
+		&& apt install -y net-tools
 
-RUN		wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 
-WORKDIR	/var/www
-RUN		tar -xf wordpress-6.0-fr_FR.tar.gz \
-		&& rm wordpress-6.0-fr_FR.tar.gz \
-		&& chown -R root:root /var/www
+# WORKDIR	/var/www/html/worpress
+# RUN		tar -xf wordpress-6.0-fr_FR.tar.gz \
+# 		&& rm wordpress-6.0-fr_FR.tar.gz \
+# 		&& chown -R root:root /var/www/
 
-RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 		&& chmod +x wp-cli.phar \
 		&& mv wp-cli.phar /usr/bin/wp
 
@@ -27,9 +25,9 @@ WORKDIR /tmp
 COPY	/conf/config_auto.sh ./config_auto.sh
 RUN		chmod +x ./config_auto.sh
 
-RUN		mkdir /run/php /var/log/php7
+RUN		mkdir -p /run/php /var/log/php7 /var/www/html/wordpress 
 
-WORKDIR	/var/www/wordpress
+WORKDIR	/var/www/html/wordpress
 
 EXPOSE 9000
 
