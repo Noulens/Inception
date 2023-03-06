@@ -30,6 +30,6 @@ RUN		mkdir -p /run/php /var/log/php7 /var/www/html/wordpress
 
 WORKDIR	/var/www/html/wordpress
 
-EXPOSE 9000
+# EXPOSE 9000
 
 ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
