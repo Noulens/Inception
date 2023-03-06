@@ -10,12 +10,7 @@ RUN		apt update -y \
 		&& apt install -y net-tools
 
 
-# WORKDIR	/var/www/html/worpress
-# RUN		tar -xf wordpress-6.0-fr_FR.tar.gz \
-# 		&& rm wordpress-6.0-fr_FR.tar.gz \
-# 		&& chown -R root:root /var/www/
-
-RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+dockerRUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 		&& chmod +x wp-cli.phar \
 		&& mv wp-cli.phar /usr/bin/wp
 
