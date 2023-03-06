@@ -20,7 +20,7 @@ top:
 
 
 fclean: down prune
-	rm -rf /home/tnoulens/data/
+	sudo rm -rf /home/tnoulens/data/
 	rm -f ./srcs/.env
 
 prune:
