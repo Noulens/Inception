@@ -27,10 +27,10 @@ clean:
 	sudo rm -rf /home/tnoulens/data/mariadb/ \
 	sudo rm -rf /home/tnoulens/data/wordpress/
 
-fclean: clean
-	docker-compose -f $(SRCS) down --rmi all -v
-	rm -rf /home/tnoulens/data/
-	rm -f ./srcs/.env
+# fclean: clean
+# 	docker-compose -f $(SRCS) down --rmi all -v
+# 	rm -rf /home/tnoulens/data/
+# 	rm -f ./srcs/.env
 
 prune:
 	docker system prune -f --all --volumes
