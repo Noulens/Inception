@@ -6,9 +6,7 @@ RUN		apt update -y \
 		&& apt-get install -y php7.3 \
 		php-fpm \
 		php-mysql \
-		mariadb-client \
-		&& apt install -y net-tools
-
+		mariadb-client
 
 RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 		&& chmod +x wp-cli.phar \
