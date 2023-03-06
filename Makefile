@@ -18,19 +18,10 @@ ps:
 top:
 	docker-compose -f $(SRCS) top
 
-clean:
-	rm -f ./srcs/.env;
-	docker-compose -f $(SRCS) down \
-    docker rm $$(docker ps -qa) \
-    docker rmi -f $$(docker images -qa) \
-    docker volume rm $$(docker volume ls -q) \
-	sudo rm -rf /home/tnoulens/data/mariadb/ \
-	sudo rm -rf /home/tnoulens/data/wordpress/
 
-# fclean: clean
-# 	docker-compose -f $(SRCS) down --rmi all -v
-# 	rm -rf /home/tnoulens/data/
-# 	rm -f ./srcs/.env
+fclean: down prune
+	rm -rf /home/tnoulens/data/
+	rm -f ./srcs/.env
 
 prune:
 	docker system prune -f --all --volumes
