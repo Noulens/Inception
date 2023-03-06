@@ -2,6 +2,7 @@ FROM	debian:buster
 
 RUN		apt update -y \
 		&& apt upgrade -y \
+		&& apt install -y curl \
 		&& apt-get install -y php7.3 \
 		php-fpm \
 		php-mysql \
@@ -31,4 +32,4 @@ WORKDIR	/var/www/html/wordpress
 
 EXPOSE 9000
 
-ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
+# ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
