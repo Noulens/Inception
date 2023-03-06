@@ -22,4 +22,4 @@ RUN		chmod 777 /var/www/html \
 
 EXPOSE 443
 
-# ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

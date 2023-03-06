@@ -32,4 +32,4 @@ WORKDIR	/var/www/html/wordpress
 
 EXPOSE 9000
 
-# ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]
+ENTRYPOINT [ "sh", "/tmp/config_auto.sh" ]

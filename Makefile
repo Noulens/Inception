@@ -21,8 +21,8 @@ clean:
     docker rm $$(docker ps -qa);\
     docker rmi -f $$(docker images -qa);\
     docker volume rm $$(docker volume ls -q);\
-	rm -rf /home/tnoulens/data/mariadb/*;\
-	rm -rf /home/tnoulens/data/wordpress/*;
+	sudo rm -rf /home/tnoulens/data/mariadb/*;\
+	sudo rm -rf /home/tnoulens/data/wordpress/*;
 
 fclean: clean
 	docker-compose -f $(SRCS) down --rmi all -v
