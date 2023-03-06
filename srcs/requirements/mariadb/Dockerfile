@@ -15,8 +15,6 @@ WORKDIR	/var/mysql
 COPY	./conf/run.sh .
 RUN		chmod -R 755 /var/mysql/run.sh
 
-# EXPOSE	3306
-
 ENTRYPOINT	["sh", "/var/mysql/run.sh"]
 
 # connect to mariadb
