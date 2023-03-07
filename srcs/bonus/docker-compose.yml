@@ -6,7 +6,7 @@ services :
     networks:
       - inception
     build:
-      context: ../requirements/jekyll
+      context: jekyll
       dockerfile: Dockerfile
     env_file:
       - ../.env
