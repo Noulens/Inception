@@ -1,11 +1,5 @@
-# Logs
-logs
-*.log
-.env
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-build/Release
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
