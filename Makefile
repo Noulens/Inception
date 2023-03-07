@@ -38,7 +38,14 @@ top:
 	docker-compose -f $(SRCS) top
 
 
-fclean: down bdown prune
+fclean:
+	docker stop $$(docker ps -qa);\
+    docker rm $$(docker ps -qa);\
+    docker rmi -f $$(docker images -qa);\
+    docker volume rm $$(docker volume ls -q);\
+	sudo rm -rf /home/tnoulens/data;\
+    docker network rm srcs_inception;\
+	docker network rm bonus_inception;\
 	sudo rm -rf /home/tnoulens/data/
 	rm -f ./srcs/.env
 

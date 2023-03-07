@@ -11,8 +11,10 @@ services :
     env_file:
       - ../.env
     volumes:
-      - jekyll_vol:/my_jekyll_blogs
+      - jekyll_vol:/my_jekyll_blogs/
     restart: on-failure
+    ports:
+      - 4000:4000
 
   mariadb:
     container_name: mariadb

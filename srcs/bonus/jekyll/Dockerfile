@@ -5,16 +5,20 @@ RUN		apk update \
 
 RUN		apk add ruby \
 		&& apk add ruby-full ruby-dev \
-		&& apk add gcc g++ make
+		&& apk add gcc g++ make fish
 
 RUN		gem install jekyll bundler \
-		&& gem cleanup \
-		mkdir /my_jekyll_blogs \
-		&& jekyll new /my_jekyll_blogs/my_awesome_blog
+ 		&& gem cleanup
+
+COPY	./conf/run.sh /
+RUN		chmod +x /run.sh
 
 WORKDIR	/my_jekyll_blogs/my_awesome_blog
+COPY	./my_awesome_blog/ .
+
+RUN		/run.sh
 
 EXPOSE	4000
 
-CMD [ "bundle", "exec", "jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
+CMD [ "bundle", "exec", "jekyll", "serve", "--livereload", "--force_polling", "-H", "0.0.0.0", "-P", "4000" ]
 
