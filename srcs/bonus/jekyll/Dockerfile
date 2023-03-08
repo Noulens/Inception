@@ -5,7 +5,7 @@ RUN		apk update \
 
 RUN		apk add ruby \
 		&& apk add ruby-full ruby-dev \
-		&& apk add gcc g++ make fish
+		&& apk add gcc g++ make
 
 RUN		gem install jekyll bundler \
  		&& gem cleanup
@@ -13,7 +13,7 @@ RUN		gem install jekyll bundler \
 COPY	./conf/run.sh /
 RUN		chmod +x /run.sh
 
-WORKDIR	/my_jekyll_blogs/my_awesome_blog
+WORKDIR	/tmp
 COPY	./my_awesome_blog/ .
 
 RUN		/run.sh

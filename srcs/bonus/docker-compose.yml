@@ -1,5 +1,23 @@
 version : '3.5'
 services :
+  ftp:
+    container_name: ftp
+    image: ftp
+    networks:
+      - inception
+    build:
+      context: vsftpd
+      dockerfile: Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - wordpress_vol:/var/www/html
+    depends_on:
+      - wordpress
+    restart: on-failure
+    ports:
+      - 21:21
+
   jekyll:
     container_name: jekyll
     image:  jekyll

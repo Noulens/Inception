@@ -47,7 +47,8 @@ fclean:
     docker network rm srcs_inception;\
 	docker network rm bonus_inception;\
 	sudo rm -rf /home/tnoulens/data/
-	rm -f ./srcs/.env
+	rm -f ./srcs/.env;\
+	docker system prune -af
 
 prune:
 	docker system prune -f --all --volumes
