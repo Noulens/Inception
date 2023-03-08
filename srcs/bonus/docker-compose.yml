@@ -16,7 +16,9 @@ services :
       - wordpress
     restart: on-failure
     ports:
-      - 21:21
+      - 0.0.0.0:20:20
+      - 0.0.0.0:21:21
+      - 21100-21110:21100-21110
 
   jekyll:
     container_name: jekyll

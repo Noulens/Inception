@@ -15,7 +15,6 @@ RUN		chmod +x ./run.sh
 WORKDIR	/etc/vsftpd
 COPY	./conf/vsftpd.conf ./vsftpd.conf
 
-EXPOSE	21
-EXPOSE	1024-1027
+EXPOSE	20 21
 
 ENTRYPOINT [ "/scripts/run.sh" ]

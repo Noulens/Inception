@@ -51,6 +51,6 @@ fclean:
 	docker system prune -af
 
 prune:
-	docker system prune -f --all --volumes
+	docker system prune -f
 
 .PHONY:	all up down ps top clean fclean prune
