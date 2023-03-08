@@ -9,5 +9,5 @@ if [ ! -f /etc/vsftpd/.my_ftp_config_ok ]; then
 	touch /etc/vsftpd/.my_ftp_config_ok
 fi
 
-echo "VSFTPD started, listen on port 21 on address $(hostname -i)"
+echo "VSFTPD started, listen on port 21 at address $(hostname -i)"
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
