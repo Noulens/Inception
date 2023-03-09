@@ -1,5 +1,5 @@
 SRCS	=	srcs/docker-compose.yml
-SRCS_B	=	srcs/bonus/docker-compose.yml
+SRCS_B	=	srcs/requirements/bonus/docker-compose.yml
 ENV		=	/home/tnoulens/.env
 
 all:	up
