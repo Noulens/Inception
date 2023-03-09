@@ -5,7 +5,6 @@ if [ ! -f /etc/vsftpd/.my_ftp_config_ok ]; then
     echo "$FTP_USER:$FTP_PASSWORD" | /usr/sbin/chpasswd
     chown -R $FTP_USER:$FTP_USER /var/www/html
 	echo $FTP_USER >> /etc/vsftpd_userlist
-	echo "pasv_address=127.0.0.1" >> /etc/vsftpd/vsftpd.conf
 	touch /etc/vsftpd/.my_ftp_config_ok
 fi
 
